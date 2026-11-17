@@ -1,0 +1,40 @@
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Tabelas */
+.data-table, .tg {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.data-table th, .tg th {
+    background-color: #9DE0AD;
+    color: #222;
+    text-align: left;
+    padding: 12px;
+    font-size: 15px;
+}
+
+.data-table td, .tg td {
+    background-color: #E0FFEB;
+    color: #333;
+    padding: 10px 12px;
+    border: 1px solid #b4afaf;
+    font-size: 14px;
+}
+
+/* Excluir dentro da tabela */
+.btn-delete {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+}
+

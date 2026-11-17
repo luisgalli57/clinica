@@ -1,0 +1,111 @@
+/* TELA LOGIN */
+.login-page {
+    background-color: rgb(154, 245, 178);
+    display: flex;
+
+    align-items: center;
+}
+
+.login-container {
+    background-color: white;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #111;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* FORMS GERAIS */
+
+.card, .cadastbody {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+}
+
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label, .cadastbody label {
+    font-weight: bold;
+    margin-bottom: 6px;
+    font-size: 15px;
+    color: #333;
+}
+ 
+.form-group input, .form-group textarea, .cadastbody input, .inputt {
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    background-color: #fff;
+}
+
+/* BOTÕES*/
+.btn-primary, .botoes input, .botoes button, .new {
+    background-color: rgb(96, 218, 112);
+    color: black;
+    font-weight: bold;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    
+}
+
+.btn-primary:hover, .botoes input:hover, .botoes button:hover {
+    background-color: rgb(74, 190, 90);
+}
+
+/* Textos e imagens da página index */
+
+.home-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.parini, .divnot {
+    flex: 1;
+    min-width: 300px;
+    text-align: justify;
+    line-height: 1.6;
+}
+
+.medica, .noticia {
+    max-width: 100%;
+    width: 380px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
