@@ -45,14 +45,9 @@ document.getElementById("formUsuario").addEventListener("submit", async (event) 
     const feedback = document.getElementById("feedback-form");
     const botao = document.getElementById("botaoSalvar");
 
-    // Validação extra de pontas de espaço (Regra de Negócio 2)
-    if (name.length < 3) {
-        feedback.style.color = "red";
-        feedback.textContent = "O nome precisa ter pelo menos 3 caracteres válidos.";
-        return;
-    }
 
-    // Estado de carregamento
+
+    // Carregamento
     botao.disabled = true;
     botao.textContent = "Salvando...";
     feedback.style.color = "blue";
@@ -81,7 +76,7 @@ document.getElementById("formUsuario").addEventListener("submit", async (event) 
                 window.location.href = "usuarios.html"; // Redireciona para a listagem
             }, 2000);
         } else {
-            // Mensagem de erro amigável caso a API falhe ou rejeite o payload (HTTP 400)
+            // Mensagem de erro (HTTP 400)
             feedback.style.color = "red";
             feedback.textContent = resultado.message || "Erro ao salvar os dados. Verifique as informações.";
             botao.disabled = false;

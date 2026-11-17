@@ -11,22 +11,22 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : null;
 switch ($method) {
     case 'GET':
         if ($id) {
-            // Obter detalhes de um usuário específico (GET /users/{id})[cite: 1]
+            // Obter detalhes do user pelo id
             buscarUsuarioPorId($conn, $id);
         } else {
-            // Listagem completa dos usuários (GET /users)[cite: 1]
+            // Lista os usuarios
             listarUsuarios($conn);
         }
         break;
 
     case 'POST':
-        // Cadastrar novo usuário (POST /users)[cite: 1]
+        // Cadastrar usuário
         cadastrarUsuario($conn);
         break;
 
     case 'PUT':
     case 'PATCH':
-        // Alterar dados de um usuário existente (PUT/PATCH /users/{id})[cite: 1]
+        // Alterar dados de um usuário
         if ($id) {
             atualizarUsuario($conn, $id);
         } else {
@@ -36,7 +36,7 @@ switch ($method) {
         break;
 
     case 'DELETE':
-        // Excluir usuário específico (DELETE /users/{id})[cite: 1]
+        // Excluir usuário
         if ($id) {
             deletarUsuario($conn, $id);
         } else {
@@ -138,17 +138,17 @@ function cadastrarUsuario($conn)
     }
     $stmtCheck->close();
 
-    // Armazenar senha com hash seguro (BCrypt)
+    // Armazenar senha segura (BCrypt)
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-    // Insere no banco de dados
+    // Insere no banco
     $stmt = $conn->prepare("INSERT INTO users (name, login, email, password, active) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssi", $name, $login, $email, $hashedPassword, $active);
 
     if ($stmt->execute()) {
         $novoId = $stmt->insert_id;
 
-        // Retornar status 201 Created e o usuário criado
+        // Retornar status 201 Created
         http_response_code(201);
         echo json_encode([
             "id" => $novoId,
@@ -169,7 +169,9 @@ function atualizarUsuario($conn, $id)
     $data = json_decode(file_get_contents("php://input"), true);
 
     $name = isset($data['name']) ? trim($data['name']) : '';
+    $login = isset($data['login']) ? trim($data['login']) : '';
     $email = isset($data['email']) ? trim($data['email']) : '';
+    $password = isset($data['password']) ? $data['password'] : '';
 
     if (strlen($name) < 3) {
         http_response_code(400);
@@ -177,11 +179,47 @@ function atualizarUsuario($conn, $id)
         return;
     }
 
-    $stmt = $conn->prepare("UPDATE users SET name = ?, email = ? WHERE id = ?");
-    $stmt->bind_param("ssi", $name, $email, $id);
+    if (strlen($login) < 3) {
+        http_response_code(400);
+        echo json_encode(["error" => "O login precisa ter pelo menos 3 caracteres."]);
+        return;
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        http_response_code(400);
+        echo json_encode(["error" => "E-mail inválido."]);
+        return;
+    }
+
+    $stmtCheck = $conn->prepare("SELECT id FROM users WHERE (login = ? OR email = ?) AND id != ?");
+    $stmtCheck->bind_param("ssi", $login, $email, $id);
+    $stmtCheck->execute();
+    if ($stmtCheck->get_result()->num_rows > 0) {
+        http_response_code(400);
+        echo json_encode(["error" => "Este login ou e-mail já está em uso por outro usuário."]);
+        return;
+    }
+    $stmtCheck->close();
+
+    if (!empty($password)) {
+        
+        if (strlen($password) < 8) {
+            http_response_code(400);
+            echo json_encode(["error" => "A nova senha deve ter no mínimo 8 caracteres."]);
+            return;
+        }
+
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+   $stmt = $conn->prepare("UPDATE users SET name = ?, login = ?, email = ?, password = ? WHERE id = ?");
+        $stmt->bind_param("ssssi", $name, $login, $email, $hashedPassword, $id);
+    } else {
+        
+        $stmt = $conn->prepare("UPDATE users SET name = ?, login = ?, email = ? WHERE id = ?");
+        $stmt->bind_param("sssi", $name, $login, $email, $id);
+    }
 
     if ($stmt->execute()) {
-        // Status 200 OK na alteração
         http_response_code(200);
         echo json_encode(["message" => "Usuário atualizado com sucesso!"]);
     } else {

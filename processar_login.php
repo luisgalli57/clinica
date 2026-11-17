@@ -1,7 +1,6 @@
 <?php
-// processar_login.php
 session_start();
-require_once 'api/conexao.php'; // Certifique-se de que este arquivo define a variável $conn (mysqli)
+require_once 'api/conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $login = trim($_POST['login'] ?? '');
@@ -12,26 +11,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Query usando prepared statements com MySQLi (buscando por login ou email)
     $sql = "SELECT id, login, password FROM users WHERE login = ? OR email = ? LIMIT 1";
     
     if ($stmt = $conn->prepare($sql)) {
-        // 'ss' indica que estamos passando duas strings como parâmetros
         $stmt->bind_param("ss", $login, $login);
         $stmt->execute();
         $resultado = $stmt->get_result();
 
         if ($usuario = $resultado->fetch_assoc()) {
-            // Valida a senha usando password_verify (compatível com o hash gerado no cadastro)
+            // Valida a senha
             if (password_verify($senha, $usuario['password'])) {
-                // Regenera o ID da sessão por segurança (previne Session Fixation)
+                // Regenera o ID da sessão
                 session_regenerate_id(true);
 
-                // Armazena dados essenciais na sessão
+                // Armazena dados essenciais
                 $_SESSION['usuario_id'] = $usuario['id'];
                 $_SESSION['usuario_login'] = $usuario['login'];
 
-                // Redireciona para a tela de agendamento ou painel
+                // Redireciona para a tela de agendamento automaticamente
                 header("Location: agendamentos.php");
                 exit;
             } else {

@@ -34,12 +34,9 @@ A organização atual dos arquivos e pastas está estruturada da seguinte forma:
 ├── cadastro.html              # Tela de cadastro e edição de usuários
 ├── cadastro.js                # Lógica JS para envio e validação do cadastro
 ├── conexao.php                # Arquivo auxiliar de conexão com o banco de dados
-├── consultas.html             # Página informativa de consultas
 ├── index.html                 # Página inicial institucional (Ponto de entrada)
 ├── login.php                  # Tela de autenticação de usuários
 ├── logout.php                 # Script de encerramento seguro de sessão
-├── processar_agendamento.php  # Processamento auxiliar de agendamentos
-├── processar_cadastro.php     # Processamento auxiliar de cadastros
 ├── processar_login.php        # Validação de credenciais e criação de sessão
 ├── usuarios.html              # Interface de listagem e gerenciamento de usuários
 ├── usuarios.js                # Lógica JS para listar e excluir usuários via API
