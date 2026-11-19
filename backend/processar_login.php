@@ -1,13 +1,13 @@
 <?php
 session_start();
-require_once 'api/conexao.php';
+require_once '../api/conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $login = trim($_POST['login'] ?? '');
     $senha = $_POST['password'] ?? '';
 
     if (empty($login) || empty($senha)) {
-        header("Location: login.php?erro=campos_vazios");
+        header("Location: ../login.php?erro=campos_vazios");
         exit;
     }
 
@@ -29,29 +29,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['usuario_login'] = $usuario['login'];
 
                 // Redireciona para a tela de agendamento automaticamente
-                header("Location: agendamentos.php");
+                header("Location: ../agendamentos.php");
                 exit;
             } else {
                 // Senha incorreta
-                header("Location: login.php?erro=credenciais_invalidas");
+                header("Location: ../login.php?erro=credenciais_invalidas");
                 exit;
             }
         } else {
             // Usuário não encontrado
-            header("Location: login.php?erro=credenciais_invalidas");
+            header("Location: ../login.php?erro=credenciais_invalidas");
             exit;
         }
 
         $stmt->close();
     } else {
         // Erro na preparação da query
-        header("Location: login.php?erro=sistema");
+        header("Location: ../login.php?erro=sistema");
         exit;
     }
 
     $conn->close();
 } else {
-    header("Location: login.php");
+    header("Location: ../login.php");
     exit;
 }
 ?>

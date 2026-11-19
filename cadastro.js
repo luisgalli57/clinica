@@ -1,4 +1,4 @@
-const API_URL = "http://localhost/clinica/api/users.php";
+const API_URL = "/clinica/users";
 const urlParams = new URLSearchParams(window.location.search);
 const userId = urlParams.get("id");
 
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (userId) {
         try {
-            const resposta = await fetch(`${API_URL}?id=${userId}`);
+            const resposta = await fetch(${API_URL}/${userId});
             if (resposta.ok) {
                 const user = await resposta.json();
                 document.getElementById("usuarioId").value = user.id;
@@ -57,7 +57,7 @@ document.getElementById("formUsuario").addEventListener("submit", async (event) 
     if (password) dados.password = password; // Só envia a senha se foi preenchida
 
     const metodo = id ? "PUT" : "POST";
-    const urlFinal = id ? `${API_URL}?id=${id}` : API_URL;
+    const urlFinal = id ? `${API_URL}/${id}` : API_URL;
 
     try {
         const resposta = await fetch(urlFinal, {
@@ -78,7 +78,7 @@ document.getElementById("formUsuario").addEventListener("submit", async (event) 
         } else {
             // Mensagem de erro (HTTP 400)
             feedback.style.color = "red";
-            feedback.textContent = resultado.message || "Erro ao salvar os dados. Verifique as informações.";
+            feedback.textContent = resultado.error || resultado.message || "Erro ao salvar os dados. Verifique as informações.";
             botao.disabled = false;
             botao.textContent = "Salvar";
         }

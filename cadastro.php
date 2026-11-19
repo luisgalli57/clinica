@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -36,11 +36,11 @@
         <input type="hidden" id="usuarioId">
 
         <label for="name">Nome (mínimo de 3 caracteres):</label>
-        <input class="inputt" type="text" id="name" name="name" required minlength="3" placeholder="Ex: Micael Calza">
+        <input class="inputt" type="text" id="name" name="name" required minlength="3" placeholder="Ex: João da Silva">
         <br><br>
 
         <label for="login">Login (mínimo de 3 caracteres):</label>
-        <input class="inputt" type="text" id="login" name="login" required minlength="3" placeholder="Ex: micaelcalza">
+        <input class="inputt" type="text" id="login" name="login" required minlength="3" placeholder="Ex: JoaoSilva">
         <br><br>
 
         <label for="email">E-mail válido:</label>

@@ -1,4 +1,4 @@
-const API_URL = "http://localhost/clinica/api/users.php";
+const API_URL = "/clinica/users";
 
 async function carregarUsuarios() {
     const loadingDiv = document.getElementById("loading");
@@ -23,16 +23,45 @@ async function carregarUsuarios() {
 
         usuarios.forEach(user => {
             const tr = document.createElement("tr");
-            tr.innerHTML = `
-                <td class="tg-0lax">${user.id}</td>
-                <td class="tg-0lax">${user.name}</td>
-                <td class="tg-0lax">${user.login}</td>
-                <td class="tg-0lax">${user.email}</td>
-                <td class="tg-0lax">
-                    <button  onclick="editarUsuario(${user.id})">✏️</button>
-                    <button onclick="deletarUsuario(${user.id})" style="background-color: #ff4d4d; color: white;">🗑️</button>
-                </td>
-            `;
+
+            const tdId = document.createElement("td");
+            tdId.className = "tg-0lax";
+            tdId.textContent = user.id;
+
+            const tdNome = document.createElement("td");
+            tdNome.className = "tg-0lax";
+            tdNome.textContent = user.name;
+
+            const tdLogin = document.createElement("td");
+            tdLogin.className = "tg-0lax";
+            tdLogin.textContent = user.login;
+
+            const tdEmail = document.createElement("td");
+            tdEmail.className = "tg-0lax";
+            tdEmail.textContent = user.email;
+
+            const tdAcoes = document.createElement("td");
+            tdAcoes.className = "tg-0lax";
+
+            const btnEditar = document.createElement("button");
+            btnEditar.textContent = "✏️";
+            btnEditar.addEventListener("click", () => editarUsuario(user.id));
+
+            const btnDeletar = document.createElement("button");
+            btnDeletar.textContent = "🗑️";
+            btnDeletar.style.backgroundColor = "#ff4d4d";
+            btnDeletar.style.color = "white";
+            btnDeletar.addEventListener("click", () => deletarUsuario(user.id));
+
+            tdAcoes.appendChild(btnEditar);
+            tdAcoes.appendChild(btnDeletar);
+
+            tr.appendChild(tdId);
+            tr.appendChild(tdNome);
+            tr.appendChild(tdLogin);
+            tr.appendChild(tdEmail);
+            tr.appendChild(tdAcoes);
+
             tbody.appendChild(tr);
         });
 
@@ -48,7 +77,7 @@ async function deletarUsuario(id) {
     if (confirm("Tem certeza absoluta que deseja excluir este usuário?")) {
         const msgDiv = document.getElementById("mensagem");
         try {
-            const resposta = await fetch(`${API_URL}?id=${id}`, {
+            const resposta = await fetch(`${API_URL}/${id}`, {
                 method: "DELETE"
             });
 
@@ -58,7 +87,7 @@ async function deletarUsuario(id) {
                 carregarUsuarios(); // Atualiza a tabela
             } else {
                 const erro = await resposta.json();
-                throw new Error(erro.message || "Erro ao excluir usuário.");
+                throw new Error(erro.error || erro.message || "Erro ao excluir usuário.");
             }
         } catch (error) {
             msgDiv.style.color = "red";

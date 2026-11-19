@@ -7,6 +7,6 @@ $_SESSION = array();
 
 session_destroy();
 
-header("Location: login.php?sucesso=logout");
+header("Location: ../login.php?sucesso=logout");
 exit;
 ?>

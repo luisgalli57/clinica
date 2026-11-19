@@ -1,6 +1,6 @@
 # Sistema Web de Gestão de Usuários e Agendamentos - Clínica Calvier
 
-Este projeto foi desenvolvido como parte do desafio técnico do processo seletivo **Iniciativa Dev Pool**. Trata-se de uma aplicação web completa que integra autenticação de usuários, gerenciamento de sessões e criação de agendamentos, utilizando uma arquitetura com isolamento de camadas onde o Frontend consome endpoints de uma API RESTful em PHP.
+Este projeto foi desenvolvido como parte do desafio técnico do processo seletivo **Iniciativa Dev Pool**. Trata-se de uma aplicação web que integra autenticação de usuários, gerenciamento de sessões e criação de agendamentos, utilizando uma arquitetura com isolamento de camadas onde o Frontend consome endpoints de uma API RESTful em PHP.
 
 ## 1. Tecnologias Utilizadas
 
@@ -15,10 +15,15 @@ A organização atual dos arquivos e pastas está estruturada da seguinte forma:
 
 ```text
 /
+├── .htaccess                  # Reescrita de rotas amigáveis (/users e /users/{id})
 ├── api/
 │   ├── agendamentos.php       # Endpoints REST para criação de agendamentos
 │   ├── conexao.php            # Configuração de conexão com o banco MySQL para a API
-│   └── users.php              # Endpoints REST para CRUD completo de usuários
+│   ├── users.php              # Endpoints REST para CRUD completo de usuários
+│   └── verificar_sessao.php   # Verificação de sessão ativa e redirecionamento para login
+├── backend/
+│   ├── logout.php             # Script de encerramento seguro de sessão
+│   └── processar_login.php    # Validação de credenciais e criação de sessão
 ├── CSS/
 │   ├── forms.css              # Estilos de formulários, cards, botões e tela de login
 │   ├── global.css             # CSS geral, variáveis base e layout flexível
@@ -31,16 +36,13 @@ A organização atual dos arquivos e pastas está estruturada da seguinte forma:
 │   └── rs.png                 # Imagem ilustrativa de notícias na página inicial
 ├── agendamento.js             # Lógica JS para consumo da API de agendamentos
 ├── agendamentos.php           # Interface protegida do painel de agendamentos
-├── cadastro.php              # Tela de cadastro e edição de usuários
+├── cadastro.php               # Tela protegida de cadastro e edição de usuários
 ├── cadastro.js                # Lógica JS para envio e validação do cadastro
 ├── conexao.php                # Arquivo auxiliar de conexão com o banco de dados
 ├── index.html                 # Página inicial institucional (Ponto de entrada)
 ├── login.php                  # Tela de autenticação de usuários
-├── logout.php                 # Script de encerramento seguro de sessão
-├── processar_login.php        # Validação de credenciais e criação de sessão
-├── usuarios.php              # Interface de listagem e gerenciamento de usuários
+├── usuarios.php               # Interface protegida de listagem e gerenciamento de usuários
 ├── usuarios.js                # Lógica JS para listar e excluir usuários via API
-├── verificar_sessao.php       # Middleware para proteção de páginas restritas
 └── README.md                  # Documentação técnica do projeto
 ```
 
@@ -118,11 +120,12 @@ A comunicação entre o Frontend e o Backend é feita via JSON, respeitando os c
 * **Atualizar usuário (`PUT /api/users.php?id=1`)**
   ```bash
   curl -X PUT "http://localhost/clinica/api/users.php?id=1" \
-       -H "Content-Type: application/json" \
-       -d '{
-             "name": "Maria Oliveira Silva",
-             "active": true
-           }'
+     -H "Content-Type: application/json" \
+     -d '{
+           "name": "Maria Oliveira Silva",
+           "login": "mariasilva",
+           "email": "maria@exemplo.com"
+         }'
   ```
 
 * **Excluir usuário (`DELETE /api/users.php?id=1`)**

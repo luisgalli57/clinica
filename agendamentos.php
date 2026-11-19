@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once 'api/verificar_sessao.php';
 ?>
 <!DOCTYPE html>
@@ -26,7 +26,7 @@ require_once 'api/verificar_sessao.php';
             <br>
             <div class="user-info">
                 <span>Bem-vindo (a), <strong><?php echo htmlspecialchars($_SESSION['usuario_login']); ?></strong>!</span>
-                <a href="logout.php" class="btn-logout">Sair</a>
+                <a href="backend/logout.php" class="btn-logout">Sair</a>
                 <a href="index.html" class="btn-primary" >Voltar</a>
                 <a href="usuarios.php" class="btn-primary">Gerenciar Usuários</a>
 

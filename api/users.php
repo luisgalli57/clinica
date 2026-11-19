@@ -1,11 +1,13 @@
 <?php
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 include_once("conexao.php");
 
 $method = $_SERVER['REQUEST_METHOD'];
 
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$uri_segments = explode('/', $uri);
 $id = isset($_GET['id']) ? intval($_GET['id']) : null;
 
 switch ($method) {
@@ -202,7 +204,7 @@ function atualizarUsuario($conn, $id)
     $stmtCheck->close();
 
     if (!empty($password)) {
-        
+
         if (strlen($password) < 8) {
             http_response_code(400);
             echo json_encode(["error" => "A nova senha deve ter no mínimo 8 caracteres."]);
@@ -211,10 +213,10 @@ function atualizarUsuario($conn, $id)
 
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-   $stmt = $conn->prepare("UPDATE users SET name = ?, login = ?, email = ?, password = ? WHERE id = ?");
+        $stmt = $conn->prepare("UPDATE users SET name = ?, login = ?, email = ?, password = ? WHERE id = ?");
         $stmt->bind_param("ssssi", $name, $login, $email, $hashedPassword, $id);
     } else {
-        
+
         $stmt = $conn->prepare("UPDATE users SET name = ?, login = ?, email = ? WHERE id = ?");
         $stmt->bind_param("sssi", $name, $login, $email, $id);
     }
@@ -231,11 +233,18 @@ function atualizarUsuario($conn, $id)
 
 function deletarUsuario($conn, $id)
 {
+    $usuarioLogadoId = isset($_SESSION['usuario_id']) ? intval($_SESSION['usuario_id']) : 0;
+
+    if ($usuarioLogadoId > 0 && $id === $usuarioLogadoId) {
+        http_response_code(403);
+        echo json_encode(["error" => "Você não pode excluir o próprio usuário que está logado."]);
+        return;
+    }
+
     $stmt = $conn->prepare("DELETE FROM users WHERE id = ?");
     $stmt->bind_param("i", $id);
 
     if ($stmt->execute()) {
-        // Status 200 OK ou 204 No Content na exclusão
         http_response_code(200);
         echo json_encode(["message" => "Usuário excluído com sucesso!"]);
     } else {

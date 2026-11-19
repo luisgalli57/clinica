@@ -21,7 +21,7 @@ require_once 'api/verificar_sessao.php';
 
         <div class="user-info">
             <span style="color: black;">Bem-vindo (a), <strong><?php echo htmlspecialchars($_SESSION['usuario_login']); ?></strong>!</span>
-            <a href="logout.php" class="btn-logout">Sair</a>
+            <a href="backend/logout.php" class="btn-logout">Sair</a>
             <a href="agendamentos.php" class="btn-primary">Painel de Agendamentos</a>
             
         </div>
