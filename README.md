@@ -21,9 +21,9 @@ A organização atual dos arquivos e pastas está estruturada da seguinte forma:
 │   └── users.php              # Endpoints REST para CRUD completo de usuários
 ├── CSS/
 │   ├── forms.css              # Estilos de formulários, cards, botões e tela de login
-│   ├── global.css             # Reset CSS, variáveis base e layout flexível
+│   ├── global.css             # CSS geral, variáveis base e layout flexível
 │   ├── nav.css                # Estilização do cabeçalho e barras de navegação
-│   └── tabelas.css            # Estilização das tabelas de listagem
+│   └── tabelas.css            # Estilização das tabelas
 ├── img/
 │   ├── logo.PNG               # Logotipo principal
 │   ├── logoo.png              # Logotipo adaptado para cabeçalho e rodapé
@@ -31,14 +31,14 @@ A organização atual dos arquivos e pastas está estruturada da seguinte forma:
 │   └── rs.png                 # Imagem ilustrativa de notícias na página inicial
 ├── agendamento.js             # Lógica JS para consumo da API de agendamentos
 ├── agendamentos.php           # Interface protegida do painel de agendamentos
-├── cadastro.html              # Tela de cadastro e edição de usuários
+├── cadastro.php              # Tela de cadastro e edição de usuários
 ├── cadastro.js                # Lógica JS para envio e validação do cadastro
 ├── conexao.php                # Arquivo auxiliar de conexão com o banco de dados
 ├── index.html                 # Página inicial institucional (Ponto de entrada)
 ├── login.php                  # Tela de autenticação de usuários
 ├── logout.php                 # Script de encerramento seguro de sessão
 ├── processar_login.php        # Validação de credenciais e criação de sessão
-├── usuarios.html              # Interface de listagem e gerenciamento de usuários
+├── usuarios.php              # Interface de listagem e gerenciamento de usuários
 ├── usuarios.js                # Lógica JS para listar e excluir usuários via API
 ├── verificar_sessao.php       # Middleware para proteção de páginas restritas
 └── README.md                  # Documentação técnica do projeto

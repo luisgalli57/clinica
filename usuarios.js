@@ -29,8 +29,8 @@ async function carregarUsuarios() {
                 <td class="tg-0lax">${user.login}</td>
                 <td class="tg-0lax">${user.email}</td>
                 <td class="tg-0lax">
-                    <button onclick="editarUsuario(${user.id})">Editar</button>
-                    <button onclick="deletarUsuario(${user.id})" style="background-color: #ff4d4d; color: white;">Excluir</button>
+                    <button  onclick="editarUsuario(${user.id})">✏️</button>
+                    <button onclick="deletarUsuario(${user.id})" style="background-color: #ff4d4d; color: white;">🗑️</button>
                 </td>
             `;
             tbody.appendChild(tr);
@@ -43,7 +43,7 @@ async function carregarUsuarios() {
     }
 }
 
-// Requisito 11: Solicitar confirmação antes de executar a exclusão
+// Confirmação antes da exclusão
 async function deletarUsuario(id) {
     if (confirm("Tem certeza absoluta que deseja excluir este usuário?")) {
         const msgDiv = document.getElementById("mensagem");
@@ -68,8 +68,8 @@ async function deletarUsuario(id) {
 }
 
 function editarUsuario(id) {
-    // Redireciona para o formulário passando o ID via parâmetro na URL
-    window.location.href = `cadastro.html?id=${id}`;
+    // Redireciona para o formulário informando o ID na URL
+    window.location.href = `cadastro.php?id=${id}`;
 }
 
 // Executa ao carregar a página

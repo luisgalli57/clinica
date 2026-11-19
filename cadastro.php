@@ -18,7 +18,9 @@
 
     <ul>
       <li><a href="index.html">Voltar ao início</a></li>
-      <li><a href="agendamentos.php">Agende agora mesmo sua consulta!!</a></li>
+      <li><a href="usuarios.php">Lista de cadastros</a></li>
+      <li><a href="agendamentos.php">Agende sua consulta</a></li>
+      
     </ul>
 
   </nav>
@@ -54,7 +56,7 @@
 
         <div class="botoes">
           <button type="submit" id="botaoSalvar">Salvar</button>
-          <a href="usuarios.html"><button type="button">Lista de cadastros</button></a>
+
         </div>
       </form>
     </div>

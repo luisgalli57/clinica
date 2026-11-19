@@ -56,7 +56,7 @@
     color: #333;
 }
  
-.form-group input, .form-group textarea, .cadastbody input, .inputt {
+.form-group input, .form-group textarea, .cadastbody input, .inputt, .form-group select {
     width: 100%;
     padding: 10px 12px;
     margin-top: 8px;

@@ -73,7 +73,7 @@ document.getElementById("formUsuario").addEventListener("submit", async (event) 
             feedback.style.color = "green";
             feedback.textContent = id ? "Usuário atualizado com sucesso!" : "Usuário cadastrado com sucesso! (Status 201)";
             setTimeout(() => {
-                window.location.href = "usuarios.html"; // Redireciona para a listagem
+                window.location.href = "usuarios.php"; // Redireciona para a listagem
             }, 2000);
         } else {
             // Mensagem de erro (HTTP 400)

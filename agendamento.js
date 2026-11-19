@@ -1,4 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Data mínima como hoje e atualiza os horários
+    const inputData = document.getElementById("data_agendamento");
+    if (inputData) {
+        const agora = new Date();
+        const ano = agora.getFullYear();
+        const mes = String(agora.getMonth() + 1).padStart(2, '0');
+        const dia = String(agora.getDate()).padStart(2, '0');
+        const hoje = `${ano}-${mes}-${dia}`;
+        
+        inputData.min = hoje;
+        inputData.addEventListener("change", atualizarHorariosDisponiveis);
+    }
+
     
     const form = document.getElementById("formAgendamento");
     if (form) {
@@ -6,6 +19,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+// Bloqueia horários passados
+function atualizarHorariosDisponiveis() {
+    const inputData = document.getElementById("data_agendamento");
+    const selectHora = document.getElementById("hora_agendamento");
+    if (!inputData || !selectHora) return;
+
+    const agora = new Date();
+    const ano = agora.getFullYear();
+    const mes = String(agora.getMonth() + 1).padStart(2, '0');
+    const dia = String(agora.getDate()).padStart(2, '0');
+    const hoje = `${ano}-${mes}-${dia}`;
+
+    const horaAtual = agora.getHours();
+    const ehHoje = (inputData.value === hoje);
+
+    // Reseta a seleção atual 
+    selectHora.value = "";
+
+    // Percorre as opções do select de horário
+    Array.from(selectHora.options).forEach(option => {
+        if (!option.value) return; // Ignora o placeholder
+
+        const horaOpcao = parseInt(option.value.split(":")[0], 10);
+
+        if (ehHoje && horaOpcao <= horaAtual) {
+            option.disabled = true;
+            option.textContent = `${option.value} (Indisponível)`;
+        } else {
+            option.disabled = false;
+            option.textContent = option.value;
+        }
+    });
+}
 
 // cadastrar novo agendamento com feedback de carregamento
 async function cadastrarAgendamento(event) {
@@ -13,8 +59,13 @@ async function cadastrarAgendamento(event) {
 
     const btnSubmit = event.target.querySelector("button[type='submit']");
     const titulo = document.getElementById("titulo").value.trim();
-    const data_hora = document.getElementById("data_hora").value;
+    const dataInput = document.getElementById("data_agendamento").value; // "2026-11-25"
+    const horaInput = document.getElementById("hora_agendamento").value; // "14:30"
     const descricao = document.getElementById("descricao").value.trim();
+
+
+    // Junta a data e a hora (YYYY-MM-DD HH:MM:SS)
+    const data_hora = `${dataInput} ${horaInput}:00`;
 
 
     // Feedback visual de carregamento
