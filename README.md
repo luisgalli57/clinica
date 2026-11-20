@@ -38,7 +38,6 @@ A organização atual dos arquivos e pastas está estruturada da seguinte forma:
 ├── agendamentos.php           # Interface protegida do painel de agendamentos
 ├── cadastro.php               # Tela protegida de cadastro e edição de usuários
 ├── cadastro.js                # Lógica JS para envio e validação do cadastro
-├── conexao.php                # Arquivo auxiliar de conexão com o banco de dados
 ├── index.html                 # Página inicial institucional (Ponto de entrada)
 ├── login.php                  # Tela de autenticação de usuários
 ├── usuarios.php               # Interface protegida de listagem e gerenciamento de usuários

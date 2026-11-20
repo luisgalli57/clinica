@@ -8,6 +8,7 @@ include_once("conexao.php");
 
 $method = $_SERVER['REQUEST_METHOD'];
 
+
 $id = isset($_GET['id']) ? intval($_GET['id']) : null;
 
 switch ($method) {

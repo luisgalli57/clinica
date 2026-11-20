@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (userId) {
         try {
-            const resposta = await fetch(${API_URL}/${userId});
+            const resposta = await fetch(`${API_URL}/${userId}`);
             if (resposta.ok) {
                 const user = await resposta.json();
                 document.getElementById("usuarioId").value = user.id;
